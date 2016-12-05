@@ -24,6 +24,14 @@ app.get('/*', (req, res) => {
 			})
 			.catch(err => {
 				console.log(err.stack);
+				const {name, message, statusCode} = err;
+				res.status(statusCode || 400)
+					.json({
+						error: {
+							name,
+							message
+						}
+					});
 				res.send(`${err.name}: ${err.message}`);
 			});
 	} else {
@@ -38,7 +46,7 @@ function getTorrent(url) {
 			const contentType = res.headers['content-type'];
 
 			if (statusCode !== 200) {
-				return reject(errorHandler('Request Failed', `Status Code: ${statusCode}`));
+				return reject(errorHandler('Request Failed', `Status Code: ${statusCode}`, statusCode));
 			} else if (!/^application\/x-bittorrent/.test(contentType)) {
 				return reject(errorHandler('Invalid content-type', `Expected application/x-bittorrent but received ${contentType}`));
 			} else if (err) {
@@ -56,12 +64,13 @@ function getTorrent(url) {
 	});
 }
 
-function errorHandler(name, message) {
+function errorHandler(name, message, statusCode = null) {
 	const stack = new Error(`${name} - ${message}`);
 	return {
 		name,
 		message,
-		stack
+		stack,
+		statusCode
 	};
 }
 
