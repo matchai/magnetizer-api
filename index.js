@@ -19,10 +19,10 @@ app.get('/*', (req, res) => {
 	if (validUrl.isUri(url)) {
 		// URL was sent as param
 		getTorrent(url)
-			.then((data) => {
+			.then(data => {
 				res.json(data);
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log(err.stack);
 				res.send(`${err.name}: ${err.message}`);
 			});
@@ -47,7 +47,7 @@ function getTorrent(url) {
 
 			const parsedData = parseTorrent(body);
 			const pick = (obj, ...props) => Object.assign({}, ...props.map(prop => ({[prop]: obj[prop]})));
-			const magnetData = pick(parsedData, 'name', 'infoHash', 'infoHashBuffer', 'announce')
+			const magnetData = pick(parsedData, 'name', 'infoHash', 'infoHashBuffer', 'announce');
 			const torrentData = pick(parsedData, 'name', 'created', 'comment', 'infoHash', 'announce', 'files');
 			const magnetURI = parseTorrent.toMagnetURI(magnetData);
 
@@ -62,7 +62,7 @@ function errorHandler(name, message) {
 		name,
 		message,
 		stack
-	}
+	};
 }
 
 app.listen(port, () => {
