@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.14.0",
+    "morgan": "^1.7.0",
     "parse-torrent": "^5.8.1",
     "request": "^2.79.0",
     "valid-url": "^1.0.9"

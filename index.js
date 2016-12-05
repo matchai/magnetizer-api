@@ -2,10 +2,13 @@
 const request = require('request');
 const validUrl = require('valid-url');
 const parseTorrent = require('parse-torrent');
+const morgan = require('morgan');
 const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
 	res.send('Try sending a url!');
@@ -16,11 +19,8 @@ app.get('/*', (req, res) => {
 	if (validUrl.isUri(url)) {
 		// URL was sent as param
 		getTorrent(url)
-			.then(magnet => {
-				res.json({
-					magnet
-				})
-				res.send(out);
+			.then((data) => {
+				res.json(data);
 			})
 			.catch((err) => {
 				console.log(err.stack);
@@ -45,10 +45,13 @@ function getTorrent(url) {
 				return reject(errorHandler('Request Failed', `The following error was encountered: ${err}`));
 			}
 
-			const {name, infoHash, infoHashBuffer, announce} = parseTorrent(body);
-			const magnet = parseTorrent.toMagnetURI({name, infoHash, infoHashBuffer, announce});
+			const parsedData = parseTorrent(body);
+			const pick = (obj, ...props) => Object.assign({}, ...props.map(prop => ({[prop]: obj[prop]})));
+			const magnetData = pick(parsedData, 'name', 'infoHash', 'infoHashBuffer', 'announce')
+			const torrentData = pick(parsedData, 'name', 'created', 'comment', 'infoHash', 'announce', 'files');
+			const magnetURI = parseTorrent.toMagnetURI(magnetData);
 
-			return resolve(magnet);
+			return resolve({magnetURI, torrentData});
 		});
 	});
 }
