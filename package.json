@@ -1,0 +1,32 @@
+{
+  "name": "magnetizer",
+  "version": "1.0.0",
+  "description": "Convert torrent links to magnet links",
+  "main": "index.js",
+  "repository": "matchai/magnetizer",
+  "author": {
+    "name": "Matan Kushner",
+    "email": "matchai@me.com",
+    "url": "matchai.me"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "test": "xo"
+  },
+  "devDependencies": {
+    "xo": "^0.17.1"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node"
+    ]
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "parse-torrent": "^5.8.1",
+    "request": "^2.79.0",
+    "valid-url": "^1.0.9"
+  }
+}
