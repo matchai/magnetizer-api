@@ -14,7 +14,7 @@ $ npm install
 $ npm start
 ```
 
-_ A local instance of magnetizer will be running at http://localhost:8080. _
+*A local instance of magnetizer will be running at http://localhost:8080.*
 
 ## API
 
