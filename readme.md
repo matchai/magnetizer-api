@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="500" src="https://cdn.rawgit.com/matchai/magnetizer/master/media/logo-text.svg" alt="Magnetizer">
+	<img width="500" src="https://cdn.rawgit.com/matchai/magnetizer-api/master/media/logo-text.svg" alt="Magnetizer">
 	<br>
 	<br>
 </h1>
@@ -14,7 +14,7 @@ $ npm install
 $ npm start
 ```
 
-_ A local instance of magnetizer will be running at http://localhost:8080. _
+*A local instance of magnetizer will be running at http://localhost:8080.*
 
 ## API
 
