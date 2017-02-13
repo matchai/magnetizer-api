@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Convert torrent links to magnet links",
   "main": "index.js",
-  "repository": "matchai/magnetizer",
+  "repository": "matchai/magnetizer-api",
   "author": {
     "name": "Matan Kushner",
     "email": "matchai@me.com",
