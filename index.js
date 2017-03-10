@@ -20,7 +20,10 @@ app.get('/*', (req, res) => {
 		// URL was sent as param
 		getTorrent(url)
 			.then(data => {
-				res.json(data);
+				res.header({
+					magnetURI: data.magnetURI
+				});
+				res.sendStatus(204);
 			})
 			.catch(err => {
 				console.log(err.stack);
